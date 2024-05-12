@@ -85,6 +85,7 @@ void Worker::healWall(Wall *&w)
 
 void Worker::Die()
 {
+    maxWorkers--;
     isDead = true;
     startDeathAnimation();
     QTimer::singleShot(15*animationInterval, this, SLOT(deleteWorker()));
@@ -263,3 +264,5 @@ void Worker::deleteWorker()
 }
 
 int Worker::currentWorkers = 0;
+
+int Worker::maxWorkers = 5;

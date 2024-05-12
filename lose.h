@@ -14,6 +14,13 @@ class lose : public QWidget
 public:
     explicit lose(QWidget *parent = nullptr);
     ~lose();
+signals:
+    void retry();
+    void back();
+private slots:
+    void on_retry_clicked();
+
+    void on_back_clicked();
 
 private:
     Ui::lose *ui;

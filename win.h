@@ -14,6 +14,13 @@ class win : public QWidget
 public:
     explicit win(QWidget *parent = nullptr);
     ~win();
+signals:
+    void next();
+    void back();
+private slots:
+    void on_next_clicked();
+
+    void on_back_clicked();
 
 private:
     Ui::win *ui;

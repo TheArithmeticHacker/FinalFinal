@@ -18,14 +18,14 @@ class Game : public QGraphicsView
 {
     Q_OBJECT
 public:
-    Game();
+    Game(int l);
     Graph *gameGraph;
     QGraphicsScene *gameScene;
 
     void buildBoard(QString filePath);
     void readData(QString filePath);
     void createGraph();
-    void startLevel(int);
+    void startLevel();
     void Lost();
     void Won();
     void nextLevel();

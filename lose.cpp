@@ -12,3 +12,17 @@ lose::~lose()
 {
     delete ui;
 }
+
+void lose::on_retry_clicked()
+{
+    emit retry();
+    delete this;
+}
+
+
+void lose::on_back_clicked()
+{
+    emit back();
+    delete this;
+}
+

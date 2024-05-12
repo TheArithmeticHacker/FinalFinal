@@ -3,6 +3,7 @@
 #include "map_designer.h"
 #include "settings.h"
 #include "ui_mainwindow.h"
+#include <iostream>
 
 extern Game *game;
 MainWindow::MainWindow(QWidget *parent)
@@ -10,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    current_level = 1;
 }
 
 MainWindow::~MainWindow()
@@ -18,25 +20,32 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::won(){
+    current_level++;
     win_w = new win();
     setCentralWidget(win_w);
+    QObject::connect(win_w,&win::back,this,&MainWindow::reset);
+    QObject::connect(win_w,&win::next,this,&MainWindow::begin_game);
 //add connections
 }
 void MainWindow::lost(){
     lose_w = new lose();
     setCentralWidget(lose_w);
+    QObject::connect(lose_w,&lose::back,this,&MainWindow::reset);
+    QObject::connect(lose_w,&lose::retry,this,&MainWindow::begin_game);
     //add connections
 }
 void MainWindow::on_start_clicked()
 {
-    game = new Game();
+    begin_game();
+}
+void MainWindow::begin_game(){
+    game = new Game(current_level);
     setCentralWidget(game);
-    QObject::connect(game,SIGNAL(&Game::win),this,SLOT(&MainWindow::won));
-    QObject::connect(game,SIGNAL(&Game::lose),this,SLOT(&MainWindow::lost));
-    game->startLevel(1);
+    QObject::connect(game,&Game::win,this,&MainWindow::won);
+    QObject::connect(game,&Game::lose,this,&MainWindow::lost);
+    game->startLevel();
     qDebug() << "After start.";
 }
-
 void MainWindow::on_settings_clicked()
 {
     /* Code for switching to settings widget

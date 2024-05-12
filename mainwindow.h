@@ -30,6 +30,7 @@ private slots:
 
     void back_to_settings();
     void on_exit_clicked();
+    void begin_game();
 
     void won();
 
@@ -43,6 +44,7 @@ private:
     settings * settings_w;
     win* win_w;
     lose* lose_w;
+    int current_level;
 };
 
 #endif // MAINWINDOW_H
